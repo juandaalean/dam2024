@@ -4,7 +4,7 @@ import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroMockRemoteDataSource {
 
-    private val superHeros = listOf(
+    private val superHeroes = listOf(
         SuperHero(
             "1",
             "A-Bomb",
@@ -23,16 +23,16 @@ class SuperHeroMockRemoteDataSource {
     )
 
     fun getSuperHeroes(): List<SuperHero> {
-        return superHeros
+        return superHeroes
     }
 
-    /*
+
 
     fun getSuperHero(superheroId: String): SuperHero?{
-        return superHeros.firstOrNull(){ superHero ->
-            superhero.id == superheroId
-        }
+       return superHeroes.firstOrNull {superHero ->
+           superHero.id == superheroId
+       }
     }
 
-     */
+
 }
