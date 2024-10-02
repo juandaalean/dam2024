@@ -25,4 +25,14 @@ class SuperHeroMockRemoteDataSource {
     fun getSuperHeroes(): List<SuperHero> {
         return superHeros
     }
+
+    /*
+
+    fun getSuperHero(superheroId: String): SuperHero?{
+        return superHeros.firstOrNull(){ superHero ->
+            superhero.id == superheroId
+        }
+    }
+
+     */
 }
