@@ -16,6 +16,20 @@ class SuperHeroDataRepository(
         if (superHeroFromLocal.isEmpty()){
             val superHeroFromRemote = mockRemoteDataSource.getSuperHeroes()
             local.saveAll(superHeroFromRemote)
+            return superHeroFromRemote
+        } else {
+            return superHeroFromLocal
         }
+    }
+
+    override fun getSuperHero(superheroId: String): SuperHero? {
+        val superHeroLocal = local.findById(superheroId)
+        if (superHeroLocal == null){
+            mockRemoteDataSource.getSuperHero(superheroId)?.let {
+                local.save(it)
+                return it
+            }
+        }
+        return superHeroLocal
     }
 }
