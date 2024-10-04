@@ -6,7 +6,9 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import edu.iesam.dam2024.R
+import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.features.movies.data.local.MovieXmlLocalDataSource
 import edu.iesam.dam2024.features.movies.domain.Movie
 import edu.iesam.dam2024.features.movies.presentation.MovieDetailActivity.Companion.KEY_MOVIE_ID
@@ -22,12 +24,31 @@ class MoviesActivity : AppCompatActivity() {
 
         movieFactory = MovieFactory(this)
         viewModel = movieFactory.buildViewModel()
-
-        val movies = viewModel.viewCreated()
-        bindData(movies)
+        setupObserver()
+        viewModel.viewCreated()
     }
 
-    private fun bindData(movies: List<Movie>) {
+    private fun setupObserver() {
+        val movieObserver = Observer<MoviesViewModel.UiState>{ uiState ->
+            uiState.movies?.let{
+                bindData(it)
+            }
+            uiState.errorApp?.let{
+                //message
+
+            }
+            if(uiState.isLoading){
+                //message
+
+            } else{
+                //message
+            }
+        }
+        viewModel.uiState.observe(this, movieObserver)
+    }
+
+
+        fun bindData(movies: List<Movie>) {
         findViewById<TextView>(R.id.movie_id_1).text = movies[0].id
         findViewById<TextView>(R.id.movie_title_1).text = movies[0].title
         findViewById<LinearLayout>(R.id.layout_1).setOnClickListener {
@@ -50,6 +71,12 @@ class MoviesActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.movie_title_4).text = movies[3].title
         findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
             navigateToMovieDetail(movies[3].id)
+        }
+    }
+
+    private fun showError(errorApp: ErrorApp) {
+        when(error) {
+
         }
     }
 
