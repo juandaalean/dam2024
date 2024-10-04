@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MoviesViewModel(
-    private val getMoviesUseCase: GetMoviesUseCase
-) : ViewModel() {
+    private val getMoviesUseCase: GetMoviesUseCase)
+    : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
     val uiState : LiveData<UiState> = _uiState
