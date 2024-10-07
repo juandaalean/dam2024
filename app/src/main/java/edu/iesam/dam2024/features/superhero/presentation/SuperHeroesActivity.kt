@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
@@ -18,9 +19,25 @@ class SuperHeroesActivity : AppCompatActivity() {
 
         superHeroFactory = SuperHeroFactory(this)
         viewModel = superHeroFactory.buildViewModel()
+        setupObserver()
+        viewModel.viewCreated()
+    }
 
-        val superHeroes = viewModel.viewCreated()
-        bindData(superHeroes)
+    private fun setupObserver(){
+        val superHeroObserver = Observer<SuperHeroesViewModel.UiState>{ uiState ->
+            uiState.superheroes?.let{
+                bindData(it)
+            }
+            uiState.errorApp?.let{
+                //Contenido
+            }
+            if(uiState.isLoading){
+                //Contenido
+            } else{
+                //Contenido
+            }
+        }
+        viewModel.uiState.observe(this, superHeroObserver)
     }
 
     private fun bindData(superHeroes: List<SuperHero>) {

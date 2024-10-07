@@ -74,11 +74,15 @@ class MoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(errorApp: ErrorApp) {
+    /*private fun showError(errorApp: ErrorApp) {
         when(error) {
-
+            ErrorApp.InternetErrorApp -> TODO()
+            ErrorApp.ServerErrorApp -> TODO()
+            ErrorApp.DataErrorApp -> TODO()
+            ErrorApp.UnknowErrorApp -> TODO()
         }
     }
+    */
 
     private fun navigateToMovieDetail(movieId: String){
         startActivity(MovieDetailActivity.getIntent(this, movieId))

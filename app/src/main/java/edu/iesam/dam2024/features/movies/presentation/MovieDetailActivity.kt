@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.movies.domain.Movie
@@ -20,15 +21,33 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        setupObserver()
 
         movieFactory = MovieFactory(this)
         viewModel = movieFactory.buildMovieDetailViewModel()
 
         getMovieId()?.let { movieId ->
-            viewModel.viewCreated(movieId)?.let { movie ->
-                bindData(movie)
+            viewModel.viewCreated(movieId)
+        }
+    }
+
+    private fun setupObserver() {
+        val movieObserver = Observer<MovieDetailViewModel.UiState>{ uiState ->
+            uiState.movies?.let{
+                bindData(it)
+            }
+            uiState.errorApp?.let{
+                //message
+
+            }
+            if(uiState.isLoading){
+                //message
+
+            } else{
+                //message
             }
         }
+        viewModel.uiState.observe(this, movieObserver)
     }
 
     private fun getMovieId(): String? {
