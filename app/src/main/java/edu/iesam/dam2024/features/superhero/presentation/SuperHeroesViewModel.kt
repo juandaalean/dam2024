@@ -17,13 +17,12 @@ class SuperHeroesViewModel(private val getSuperHeroesUseCase: GetSuperHeroesUseC
     private val _uiState = MutableLiveData<UiState>()
     val uiState : LiveData<UiState> = _uiState
 
-    fun viewCreated() {
+    fun loadSuperHeroes() {
         _uiState.value = (UiState(isLoading = true))
 
         viewModelScope.launch(Dispatchers.IO) {
             val superHeroes = getSuperHeroesUseCase.invoke()
-            delay(5000)
-            _uiState.postValue(UiState(superheroes = superHeroes))
+            _uiState.postValue(UiState(superHeroes = superHeroes))
 
         }
     }
@@ -31,7 +30,7 @@ class SuperHeroesViewModel(private val getSuperHeroesUseCase: GetSuperHeroesUseC
     data class UiState(
         val isLoading: Boolean = false, //saber si esta cargando
         val errorApp: ErrorApp? = null, //saber si hay error
-        val superheroes: List<SuperHero>? = null //saber si hay peliculas o esa vacio
+        val superHeroes: List<SuperHero>? = null //saber si hay peliculas o esa vacio
     )
 
 }

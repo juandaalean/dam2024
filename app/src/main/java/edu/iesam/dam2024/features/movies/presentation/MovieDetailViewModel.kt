@@ -20,12 +20,13 @@ class MovieDetailViewModel(
     fun viewCreated(movieId: String){
         viewModelScope.launch(Dispatchers.IO) {
             val movie = getMovieUseCase.invoke(movieId)
+            _uiState.postValue(UiState(movie = movie))
         }
     }
 
     data class UiState(
         val isLoading: Boolean = false, //saber si esta cargando
         val errorApp: ErrorApp? = null, //saber si hay error
-        val movies: Movie? = null //saber si hay peliculas o esa vacio
+        val movie: Movie? = null //saber si hay peliculas o esa vacio
     )
 }
