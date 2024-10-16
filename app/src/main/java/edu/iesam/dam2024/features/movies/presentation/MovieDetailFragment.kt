@@ -33,6 +33,7 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         movieFactory = MovieFactory(requireContext())
         viewModel = movieFactory.buildMovieDetailViewModel()
+        setupObserver()
         getMovieId()?.let {
             viewModel.viewCreated(it)
         }

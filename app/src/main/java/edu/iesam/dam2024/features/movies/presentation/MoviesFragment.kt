@@ -28,10 +28,11 @@ class MoviesFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObserver()
+
         movieFactory = MovieFactory(requireContext())
         viewModel = movieFactory.buildViewModel()
         viewModel.viewCreated()
+        setupObserver()
     }
 
     private fun setupObserver() {
