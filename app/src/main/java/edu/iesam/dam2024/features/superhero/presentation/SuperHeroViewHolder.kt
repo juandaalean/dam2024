@@ -8,6 +8,7 @@ import edu.iesam.dam2024.databinding.ViewSuperheroItemBinding
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
     private lateinit var binding: ViewSuperheroItemBinding
 
     fun bind(model: SuperHero){
@@ -17,9 +18,5 @@ class SuperHeroViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             name.text = model.name
 
         }
-    }
-
-    private fun navigateToDetails(superheroId: String) {
-        findNavController(view).
     }
 }
