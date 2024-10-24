@@ -29,3 +29,4 @@ class   SuperHeroDetailFragment: Fragment() {
     superHeroArgs.superheroId
     }
 }
+

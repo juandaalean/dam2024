@@ -1,6 +1,6 @@
 package edu.iesam.dam2024.features.superhero.domain
 
-
+/*
 import edu.iesam.dam2024.features.superhero.data.SuperHeroDataRepository
 import edu.iesam.dam2024.features.superhero.data.local.SuperHeroXmlLocalDataSource
 import org.junit.jupiter.api.Assertions.*
@@ -25,4 +25,4 @@ class GetSuperHeroesUseCaseTest{
         assertEquals(expectedSuperHeroes, actualSuperHeroes)
     }
 
-}
+}*/

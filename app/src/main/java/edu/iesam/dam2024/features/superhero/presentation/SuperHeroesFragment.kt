@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import edu.iesam.dam2024.databinding.FragmentSuperheroesBinding
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 
 class SuperHeroesFragment: Fragment() {
 
+    private lateinit var factory: SuperHeroFactory
+    private lateinit var viewModel: SuperHeroesViewModel
+
     private var _binding: FragmentSuperheroesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var factory: SuperHeroFactory
-    private lateinit var viewModel: SuperHeroesViewModel
+    private val superHeroAdapter = SuperHeroAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,23 +29,24 @@ class SuperHeroesFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSuperheroesBinding.inflate(inflater, container, false)
+        setupView()
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        factory = SuperHeroFactory()
+        factory = SuperHeroFactory(requireContext())
         viewModel = factory.buildViewModel()
-        setupObserver()
         viewModel.loadSuperHeroes()
-
+        setupObserver()
     }
 
     private fun setupObserver() {
         val observer = Observer<SuperHeroesViewModel.UiState> { uiState ->
             //código de respuesta
             uiState.superHeroes?.let { superHeroes ->
-                bindData(superHeroes)
+                superHeroAdapter.submitList(superHeroes)
             }
 
             uiState.errorApp?.let {
@@ -59,28 +64,21 @@ class SuperHeroesFragment: Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
-    private fun bindData(superHeroes: List<SuperHero>){
+    private fun setupView() {
         binding.apply {
-            superhero1.apply {
-                text = superHeroes[0].name
-                setOnClickListener {
-                    navigateToDetails(superHeroes[0].id)
-                }
-            }
-
-            superhero2.text = superHeroes[1].name
-            superhero2.setOnClickListener {
-                navigateToDetails(superHeroes[1].id)
-            }
-
-            superhero3.text = superHeroes[2].name
-            superhero3.setOnClickListener {
-                navigateToDetails(superHeroes[2].id)
-            }
+            superHeroesRecyclerView.layoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false)
+            superHeroesRecyclerView.adapter = superHeroAdapter
         }
     }
 
+
+    /*
     private fun navigateToDetails(superheroId: String){
         findNavController().navigate(SuperHeroesFragmentDirections.actionFromSuperheroToSuperheroDetail(superheroId))
     }
+
+     */
 }
