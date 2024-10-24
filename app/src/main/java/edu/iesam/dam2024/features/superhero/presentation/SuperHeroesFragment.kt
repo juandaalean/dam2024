@@ -15,11 +15,11 @@ import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroesFragment: Fragment() {
 
-    private var _binding: FragmentSuperheroesBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var factory: SuperHeroFactory
     private lateinit var viewModel: SuperHeroesViewModel
+
+    private var _binding: FragmentSuperheroesBinding? = null
+    private val binding get() = _binding!!
 
     private val superHeroAdapter = SuperHeroAdapter()
 

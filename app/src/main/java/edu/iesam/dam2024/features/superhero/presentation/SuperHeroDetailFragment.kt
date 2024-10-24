@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import edu.iesam.dam2024.databinding.FragmentSuperheroDetailBinding
 
 class   SuperHeroDetailFragment: Fragment() {
-/*
+
     private var _binding: FragmentSuperheroDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -28,6 +28,5 @@ class   SuperHeroDetailFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     superHeroArgs.superheroId
     }
- */
 }
 
